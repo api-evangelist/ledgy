@@ -1,0 +1,283 @@
+"""
+Ledgy GraphQL Schema (representative)
+
+Representative SDL for the Ledgy equity-management GraphQL API served at
+https://app.ledgy.com/graphql (POST, Bearer API token).
+
+This schema is reconstructed from Ledgy's public API reference at
+https://docs.ledgy.com/ and reflects the documented company- and
+portfolio-scoped query surface (auth, companyCaptable, companyTransactions,
+portfolioCaptable, portfolioPerformance, portfolioTransactions) and the
+Convertible / Grant / Transfer transaction union. Exact field nullability and
+the full field inventory may differ from the live introspected schema; treat
+this as a documentation aid, not the authoritative SDL. No mutations are
+documented; the API is read-only.
+
+Source: https://docs.ledgy.com/
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar Date
+scalar DateTime
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+"""How cap table rows are aggregated by companyCaptable / portfolioCaptable."""
+enum CaptableGroupBy {
+  stakeholderName
+  shareClassName
+  captableGroup
+  grantName
+}
+
+"""The transaction kinds returned by companyTransactions / portfolioTransactions."""
+enum TransactionType {
+  convertible
+  grant
+  transfer
+}
+
+"""Anchor date a vesting schedule is measured from."""
+enum VestingOnType {
+  grantDate
+  startDate
+  firstOfMonth
+  lastOfMonth
+}
+
+# ---------------------------------------------------------------------------
+# Auth / Company
+# ---------------------------------------------------------------------------
+
+"""Authenticated company context resolved from the supplied API token."""
+type Auth {
+  companyId: ID!
+  companyName: String!
+}
+
+# ---------------------------------------------------------------------------
+# Cap table
+# ---------------------------------------------------------------------------
+
+"""
+A single aggregated cap table row. The dimension a row represents depends on
+the groupBy argument (stakeholder, share class, captable group, or grant).
+"""
+type CaptableRow {
+  stakeholderId: ID
+  stakeholderName: String
+  stakeholderEmail: String
+  stakeholderType: String
+  shareClassName: String
+  captableGroup: String
+  grantName: String
+  currency: String
+  issued: Float
+  diluted: Float
+  vested: Float
+  exercised: Float
+  terminated: Float
+  fullyDilutedOwnership: Float
+  votingOwnership: Float
+  investment: Float
+  sharePrice: Float
+  value: Float
+  vesting: Vesting
+}
+
+type CompanyCaptableResult {
+  rows: [CaptableRow!]!
+}
+
+type PortfolioCaptableResult {
+  rows: [CaptableRow!]!
+}
+
+# ---------------------------------------------------------------------------
+# Vesting
+# ---------------------------------------------------------------------------
+
+type Vesting {
+  type: String
+  startDate: Date
+  duration: Int
+  interval: Int
+  cliff: Int
+  rounding: String
+  vestingOn: VestingOnType
+}
+
+# ---------------------------------------------------------------------------
+# Transactions (Convertible | Grant | Transfer)
+# ---------------------------------------------------------------------------
+
+"""A transaction is one of a Convertible, a Grant, or a Transfer."""
+union Transaction = Convertible | Grant | Transfer
+
+interface TransactionBase {
+  transactionId: ID!
+  transactionNumber: Int
+  transactionType: TransactionType!
+  date: Date
+  lastUpdatedAt: DateTime
+  stakeholderId: ID
+  stakeholderName: String
+  stakeholderEmail: String
+  stakeholderType: String
+  stakeholderHrisIdentifier: String
+  currency: String
+}
+
+"""A convertible loan / financing-round instrument."""
+type Convertible implements TransactionBase {
+  transactionId: ID!
+  transactionNumber: Int
+  transactionType: TransactionType!
+  date: Date
+  lastUpdatedAt: DateTime
+  stakeholderId: ID
+  stakeholderName: String
+  stakeholderEmail: String
+  stakeholderType: String
+  stakeholderHrisIdentifier: String
+  currency: String
+  investment: Float
+  interestRate: Float
+  interestAccumulated: Float
+  interestStartDate: Date
+  dayBasis: String
+  maturityDate: Date
+  cap: Float
+  discount: Float
+  payback: Float
+}
+
+"""An ESOP / equity-plan grant (options, warrants, phantom, etc.)."""
+type Grant implements TransactionBase {
+  transactionId: ID!
+  transactionNumber: Int
+  transactionType: TransactionType!
+  date: Date
+  lastUpdatedAt: DateTime
+  grantType: String
+  stakeholderId: ID
+  stakeholderName: String
+  stakeholderEmail: String
+  beneficiaryId: ID
+  beneficiaryName: String
+  stakeholderType: String
+  stakeholderHrisIdentifier: String
+  currency: String
+  granted: Float
+  dilutedGranted: Float
+  diluted: Float
+  grantVested: Float
+  dilutedGrantVested: Float
+  strikePrice: Float
+  sharePrice: Float
+  expiryDate: Date
+  vesting: Vesting
+  equityPlanName: String
+  valueAtTransactionDate: Float
+  grantValue: Float
+}
+
+"""A transfer of shares between stakeholders."""
+type Transfer implements TransactionBase {
+  transactionId: ID!
+  transactionNumber: Int
+  transactionType: TransactionType!
+  date: Date
+  lastUpdatedAt: DateTime
+  stakeholderId: ID
+  stakeholderName: String
+  stakeholderEmail: String
+  stakeholderType: String
+  stakeholderHrisIdentifier: String
+  fromStakeholderId: ID
+  fromStakeholderName: String
+  currency: String
+  proceeds: Float
+  sharePrice: Float
+  diluted: Float
+  issued: Float
+}
+
+type CompanyTransactionsResult {
+  rows: [Transaction!]!
+}
+
+type PortfolioTransactionsResult {
+  rows: [Transaction!]!
+}
+
+# ---------------------------------------------------------------------------
+# Portfolio performance
+# ---------------------------------------------------------------------------
+
+"""Investment performance for one portfolio company, in portfolio currency."""
+type PortfolioPerformanceRow {
+  companyId: ID
+  companyName: String
+  address: String
+  country: String
+  currency: String
+  description: String
+  industry: String
+  website: String
+  irr: Float
+  multiple: Float
+  investment: Float
+  proceeds: Float
+  value: Float
+  lastUpdatedAt: DateTime
+}
+
+type PortfolioPerformanceResult {
+  rows: [PortfolioPerformanceRow!]!
+}
+
+# ---------------------------------------------------------------------------
+# Query (read-only API; no mutations are documented)
+# ---------------------------------------------------------------------------
+
+type Query {
+  """Resolve the company ID and name for the authenticated API token."""
+  auth: Auth!
+
+  """The authenticated company's cap table, optionally grouped and dated."""
+  companyCaptable(
+    groupBy: [CaptableGroupBy!]
+    date: Date
+  ): CompanyCaptableResult!
+
+  """The authenticated company's transactions, optionally typed and dated."""
+  companyTransactions(
+    types: [TransactionType!]
+    date: Date
+  ): CompanyTransactionsResult!
+
+  """Cap table for a single company in the authenticated portfolio."""
+  portfolioCaptable(
+    companyId: String!
+    groupBy: [CaptableGroupBy!]
+    date: Date
+  ): PortfolioCaptableResult!
+
+  """Investment performance across the authenticated portfolio."""
+  portfolioPerformance(
+    date: Date
+  ): PortfolioPerformanceResult!
+
+  """Transactions for a single company in the authenticated portfolio."""
+  portfolioTransactions(
+    companyId: String!
+    types: [TransactionType!]
+    date: Date
+  ): PortfolioTransactionsResult!
+}

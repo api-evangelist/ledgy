@@ -1,0 +1,155 @@
+aid: ledgy
+url: https://raw.githubusercontent.com/api-evangelist/ledgy/refs/heads/main/apis.yml
+name: Ledgy
+kind: company
+description: Ledgy is a European equity-management platform for cap tables, ESOP/equity
+  plans, stakeholder and investor relations, and financing rounds. The Ledgy GraphQL
+  API exposes a company's cap table, transactions (convertibles, grants, transfers),
+  share classes, financing rounds, ESOP grants, and portfolio data through a single
+  Bearer-authenticated endpoint at https://app.ledgy.com/graphql.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Equity Management
+- Cap Table
+- ESOP
+- Stakeholders
+- GraphQL
+created: '2026-06-21'
+modified: '2026-06-21'
+specificationVersion: '0.19'
+apis:
+- aid: ledgy:companies
+  name: Ledgy Companies API
+  tags:
+  - Companies
+  - Authentication
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ledgy.com/
+  baseURL: https://app.ledgy.com/graphql
+  properties:
+  - url: https://docs.ledgy.com/
+    type: Documentation
+  - url: https://docs.ledgy.com/
+    type: APIReference
+  - url: openapi/ledgy-openapi.yml
+    type: OpenAPI
+  - url: graphql/ledgy-graphql.md
+    type: GraphQL
+  description: Resolve the authenticated company context (company ID and name) for the
+    supplied API token via the auth query, the entry point for all company-scoped
+    Ledgy GraphQL operations.
+- aid: ledgy:stakeholders
+  name: Ledgy Stakeholders API
+  tags:
+  - Stakeholders
+  - Cap Table
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ledgy.com/
+  baseURL: https://app.ledgy.com/graphql
+  properties:
+  - url: https://docs.ledgy.com/
+    type: Documentation
+  - url: openapi/ledgy-openapi.yml
+    type: OpenAPI
+  - url: graphql/ledgy-graphql.md
+    type: GraphQL
+  description: Read stakeholder-level cap table rows via companyCaptable grouped by
+    stakeholderName - ownership percentages, issued, diluted, vested and exercised
+    share counts, and stakeholder metadata.
+- aid: ledgy:transactions
+  name: Ledgy Transactions API
+  tags:
+  - Transactions
+  - Convertibles
+  - Transfers
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ledgy.com/
+  baseURL: https://app.ledgy.com/graphql
+  properties:
+  - url: https://docs.ledgy.com/
+    type: Documentation
+  - url: openapi/ledgy-openapi.yml
+    type: OpenAPI
+  - url: graphql/ledgy-graphql.md
+    type: GraphQL
+  description: List company transactions via companyTransactions, returning a typed
+    union of Convertible, Grant, and Transfer records filterable by transaction type
+    and an as-of date.
+- aid: ledgy:share-classes
+  name: Ledgy Share Classes API
+  tags:
+  - Share Classes
+  - Cap Table
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ledgy.com/
+  baseURL: https://app.ledgy.com/graphql
+  properties:
+  - url: https://docs.ledgy.com/
+    type: Documentation
+  - url: openapi/ledgy-openapi.yml
+    type: OpenAPI
+  - url: graphql/ledgy-graphql.md
+    type: GraphQL
+  description: Aggregate the cap table by share class via companyCaptable grouped by
+    shareClassName, exposing per-class share counts, ownership, and value.
+- aid: ledgy:financing-rounds
+  name: Ledgy Financing Rounds API
+  tags:
+  - Financing Rounds
+  - Convertibles
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ledgy.com/
+  baseURL: https://app.ledgy.com/graphql
+  properties:
+  - url: https://docs.ledgy.com/
+    type: Documentation
+  - url: openapi/ledgy-openapi.yml
+    type: OpenAPI
+  - url: graphql/ledgy-graphql.md
+    type: GraphQL
+  description: Surface financing-round and convertible-instrument detail through
+    companyTransactions filtered to the convertible type - investment, interest,
+    valuation cap, discount, and maturity.
+- aid: ledgy:esop-grants
+  name: Ledgy ESOP and Grants API
+  tags:
+  - ESOP
+  - Grants
+  - Vesting
+  - GraphQL
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.ledgy.com/
+  baseURL: https://app.ledgy.com/graphql
+  properties:
+  - url: https://docs.ledgy.com/
+    type: Documentation
+  - url: openapi/ledgy-openapi.yml
+    type: OpenAPI
+  - url: graphql/ledgy-graphql.md
+    type: GraphQL
+  description: Read ESOP / equity-plan grant detail via companyTransactions filtered
+    to the grant type - grant type, granted and vested shares, strike price, vesting
+    schedule, and equity plan name.
+common:
+- type: GitHubOrganization
+  url: https://github.com/ledgy
+- type: LinkedIn
+  url: https://www.linkedin.com/company/ledgy
+- type: Website
+  url: https://www.ledgy.com/
+- type: Documentation
+  url: https://docs.ledgy.com/
+- type: Plans
+  url: plans/ledgy-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/ledgy-rate-limits.yml
+- type: FinOps
+  url: finops/ledgy-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

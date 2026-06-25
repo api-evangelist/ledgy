@@ -1,0 +1,73 @@
+aid: ledgy
+name: Ledgy
+review:
+  question: What transport does the Ledgy API use, and is it a native GraphQL API?
+  answer: GraphQL over HTTP
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No event-driven, streaming, Server-Sent Events, or WebSocket surface is
+    documented for Ledgy. The API is a request/response GraphQL endpoint only,
+    so no AsyncAPI document was authored.
+findings:
+  summary: |
+    Ledgy ships a real, native GraphQL API - it is the only programmatic
+    interface Ledgy publishes. All operations are issued as HTTP POST requests
+    to a single endpoint, https://app.ledgy.com/graphql, carrying a GraphQL
+    document in a JSON body and authenticated with a company API key as a
+    Bearer token. The documented query surface is read-only (auth,
+    companyCaptable, companyTransactions, portfolioCaptable,
+    portfolioPerformance, portfolioTransactions); no mutations and no
+    subscriptions are documented. There is no REST API, no webhooks surface,
+    and no WebSocket / SSE streaming transport. The OpenAPI document in this
+    repo models the single GraphQL POST transport, not a REST decomposition.
+  transports:
+    - protocol: GraphQL
+      scheme: https
+      baseURL: https://app.ledgy.com/graphql
+      documented: true
+      note: Native GraphQL over HTTP POST, application/json body, Bearer API token.
+    - protocol: REST
+      scheme: https
+      documented: false
+      note: No REST API is documented; GraphQL is the only programmatic interface.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint and no GraphQL subscriptions are documented.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events streaming is documented.
+  endpointsConfirmed:
+    - POST https://app.ledgy.com/graphql
+  graphqlOperations:
+    queries:
+      - auth
+      - companyCaptable
+      - companyTransactions
+      - portfolioCaptable
+      - portfolioPerformance
+      - portfolioTransactions
+    mutations: []
+    subscriptions: []
+  rateLimit: 20 requests per 5 seconds, per company.
+sources:
+  - url: https://docs.ledgy.com/
+    type: Documentation
+    note: GraphQL API reference; documents the endpoint, Bearer auth, rate limit, queries, and transaction union.
+  - url: https://www.ledgy.com/
+    type: Website
+    note: Product overview for the equity-management platform.
+actions:
+  graphqlSchemaPath: graphql/ledgy-schema.graphql
+  graphqlDocPath: graphql/ledgy-graphql.md
+  openapiPath: openapi/ledgy-openapi.yml
+  apisYmlUpdated: true
+  reason: |
+    Ledgy exposes a documented native GraphQL API. A representative SDL and a
+    GraphQL guide were authored, and an OpenAPI document was created to model
+    the single GraphQL POST transport endpoint for tooling that consumes
+    OpenAPI. No AsyncAPI was created because no streaming/event transport is
+    documented.

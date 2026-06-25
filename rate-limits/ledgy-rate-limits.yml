@@ -1,0 +1,46 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Ledgy
+providerId: ledgy
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: true
+tags:
+- Equity Management
+- Cap Table
+- ESOP
+- Stakeholders
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Ledgy GraphQL API enforces a documented rate limit of 20 requests every
+  5 seconds, scoped per company. All operations share this single transport
+  endpoint (POST https://app.ledgy.com/graphql), so the limit applies across
+  cap table, transaction, and portfolio queries collectively.
+notes: >-
+  The 20-requests-per-5-seconds-per-company limit is published in Ledgy's API
+  documentation. The exact throttling response code is not specified in the
+  public docs; 429 (Too Many Requests) is the conventional HTTP status for an
+  exceeded limit and is recorded here pending confirmation.
+sources:
+- https://docs.ledgy.com/
+responseCodes:
+  throttled: 429
+limits:
+- name: Requests Per 5 Seconds
+  scope: company
+  metric: requests
+  limit: 20
+  notes: 20 requests per rolling 5-second window, per company, across all GraphQL operations.
+policies:
+- name: Per-Company Scope
+  description: The rate limit is applied per company (per API key), not per IP or per user.
+- name: Backoff Strategy
+  description: >-
+    Clients should batch fields into fewer GraphQL documents and implement
+    exponential backoff when the 5-second window is exceeded.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

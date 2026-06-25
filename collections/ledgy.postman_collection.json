@@ -1,0 +1,173 @@
+{
+  "info": {
+    "name": "Ledgy GraphQL API",
+    "description": "Ledgy equity-management GraphQL API. All operations POST a GraphQL document to https://app.ledgy.com/graphql with a company API key as a Bearer token. Rate limit: 20 requests per 5 seconds per company.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{apiKey}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://app.ledgy.com",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Company",
+      "item": [
+        {
+          "name": "Resolve authenticated company (auth)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["graphql"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"{ auth { companyId companyName } }\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Resolve the company ID and name bound to the API token."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cap Table",
+      "item": [
+        {
+          "name": "Cap table by stakeholder (companyCaptable)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["graphql"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query($groupBy: [CaptableGroupBy!]) { companyCaptable(groupBy: $groupBy) { rows { stakeholderName stakeholderEmail shareClassName issued diluted vested fullyDilutedOwnership value } } }\",\n  \"variables\": { \"groupBy\": [\"stakeholderName\"] }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Read stakeholder-level cap table rows."
+          },
+          "response": []
+        },
+        {
+          "name": "Cap table by share class (companyCaptable)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["graphql"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query($groupBy: [CaptableGroupBy!], $date: Date) { companyCaptable(groupBy: $groupBy, date: $date) { rows { shareClassName issued diluted votingOwnership value } } }\",\n  \"variables\": { \"groupBy\": [\"shareClassName\"], \"date\": \"2026-01-01\" }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Aggregate the cap table by share class as of a date."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "List ESOP grants (companyTransactions)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["graphql"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query($types: [TransactionType!]) { companyTransactions(types: $types) { rows { ... on Grant { transactionId grantType stakeholderName granted grantVested strikePrice equityPlanName vesting { type startDate duration cliff vestingOn } } } } }\",\n  \"variables\": { \"types\": [\"grant\"] }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "List ESOP / equity-plan grants."
+          },
+          "response": []
+        },
+        {
+          "name": "List convertibles / financing rounds (companyTransactions)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["graphql"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query($types: [TransactionType!]) { companyTransactions(types: $types) { rows { ... on Convertible { transactionId stakeholderName investment interestRate cap discount maturityDate } } } }\",\n  \"variables\": { \"types\": [\"convertible\"] }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "List convertible instruments / financing-round detail."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Portfolio",
+      "item": [
+        {
+          "name": "Portfolio performance (portfolioPerformance)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": ["{{baseUrl}}"],
+              "path": ["graphql"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"{ portfolioPerformance { rows { companyName industry irr multiple investment value } } }\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "description": "Investment performance across the authenticated portfolio."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

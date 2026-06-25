@@ -1,0 +1,108 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Ledgy
+providerId: ledgy
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- Equity Management
+- Cap Table
+- ESOP
+- Stakeholders
+- Plans
+description: >-
+  Ledgy is sold as a sales-led B2B SaaS subscription, typically priced by
+  company stage and stakeholder count rather than by API usage. Public
+  materials describe stage-based tiers (early-stage / startup, scale-up,
+  enterprise) but do not publish a per-stakeholder or per-seat rate card; all
+  plans are quoted via Ledgy sales. The GraphQL API is included with the
+  underlying subscription and is not separately metered or priced. Specific
+  prices and entitlements are not reconciled in this artifact.
+notes: >-
+  Tier names and price bands below are indicative, drawn from third-party
+  marketplace summaries, not an official Ledgy rate card. Confirm current tiers,
+  entitlements, and pricing with Ledgy sales during reconciliation.
+sources:
+- https://www.ledgy.com/pricing
+- https://ledgy.com/company-pricing
+- https://docs.ledgy.com/
+plans:
+- id: ledgy-startup
+  name: Startup
+  type: subscription
+  description: >-
+    Stage-based plan for early-stage companies (typically under ~50
+    stakeholders): cap table management, ESOP administration, stakeholder
+    portal, basic scenario modeling, and email support. Sales-quoted annual
+    subscription.
+  entries:
+  - label: Annual Subscription
+    name: startup_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Cap Table Management
+  - name: ESOP Administration
+  - name: Stakeholder Portal
+  - name: Basic Scenario Modeling
+  - name: GraphQL API
+- id: ledgy-scaleup
+  name: Scale-up
+  type: subscription
+  description: >-
+    Growth-stage plan (typically ~50-300 stakeholders) adding advanced scenario
+    modeling, multi-currency / multi-entity support, custom reporting, investor
+    dashboards, and priority support. Sales-quoted annual subscription.
+  entries:
+  - label: Annual Subscription
+    name: scaleup_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Advanced Scenario Modeling
+  - name: Multi-Currency and Multi-Entity
+  - name: Custom Reporting
+  - name: Investor Dashboards
+  - name: GraphQL API
+- id: ledgy-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Large / complex organizations (typically 300+ stakeholders) with dedicated
+    customer success, custom integrations, advanced security and compliance
+    (SSO, SOC 2), SLA-backed support, and custom onboarding. Fully negotiated.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Unlimited Stakeholders
+  - name: Dedicated Customer Success
+  - name: Custom Integrations
+  - name: SSO and SOC 2
+  - name: SLA-Backed Support
+  - name: GraphQL API
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

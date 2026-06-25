@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ledgy GraphQL API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{apiKey}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Resolve authenticated company (auth)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.ledgy.com/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"{ auth { companyId companyName } }\"}"
+            }
+          },
+          "docs": "Resolve the company ID and name bound to the API token."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cap Table",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Cap table by stakeholder (companyCaptable)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.ledgy.com/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"query($groupBy: [CaptableGroupBy!]) { companyCaptable(groupBy: $groupBy) { rows { stakeholderName stakeholderEmail shareClassName issued diluted vested fullyDilutedOwnership value } } }\",\"variables\":{\"groupBy\":[\"stakeholderName\"]}}"
+            }
+          },
+          "docs": "Read stakeholder-level cap table rows."
+        },
+        {
+          "info": {
+            "name": "Cap table by share class (companyCaptable)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.ledgy.com/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"query($groupBy: [CaptableGroupBy!], $date: Date) { companyCaptable(groupBy: $groupBy, date: $date) { rows { shareClassName issued diluted votingOwnership value } } }\",\"variables\":{\"groupBy\":[\"shareClassName\"],\"date\":\"2026-01-01\"}}"
+            }
+          },
+          "docs": "Aggregate the cap table by share class as of a date."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List ESOP grants (companyTransactions)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.ledgy.com/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"query($types: [TransactionType!]) { companyTransactions(types: $types) { rows { ... on Grant { transactionId grantType stakeholderName granted grantVested strikePrice equityPlanName vesting { type startDate duration cliff vestingOn } } } } }\",\"variables\":{\"types\":[\"grant\"]}}"
+            }
+          },
+          "docs": "List ESOP / equity-plan grants."
+        },
+        {
+          "info": {
+            "name": "List convertibles / financing rounds (companyTransactions)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.ledgy.com/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"query($types: [TransactionType!]) { companyTransactions(types: $types) { rows { ... on Convertible { transactionId stakeholderName investment interestRate cap discount maturityDate } } } }\",\"variables\":{\"types\":[\"convertible\"]}}"
+            }
+          },
+          "docs": "List convertible instruments / financing-round detail."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Portfolio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Portfolio performance (portfolioPerformance)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.ledgy.com/graphql",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\"query\":\"{ portfolioPerformance { rows { companyName industry irr multiple investment value } } }\"}"
+            }
+          },
+          "docs": "Investment performance across the authenticated portfolio."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
