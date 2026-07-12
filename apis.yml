@@ -136,6 +136,12 @@ apis:
     to the grant type - grant type, granted and vested shares, strike price, vesting
     schedule, and equity plan name.
 common:
+- type: TrustCenter
+  url: security/ledgy-trust-center.yml
+- type: DomainSecurity
+  url: security/ledgy-domain-security.yml
+- type: Authentication
+  url: authentication/ledgy-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/ledgy
 - type: LinkedIn
@@ -150,6 +156,8 @@ common:
   url: rate-limits/ledgy-rate-limits.yml
 - type: FinOps
   url: finops/ledgy-finops.yml
+- url: https://www.ledgy.com/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

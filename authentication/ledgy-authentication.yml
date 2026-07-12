@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/ledgy-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Company API key sent as a Bearer token. Reveal it from your company's general
+    settings page in the Ledgy app.
+  sources:
+  - openapi/ledgy-openapi.yml
