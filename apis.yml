@@ -136,6 +136,8 @@ apis:
     to the grant type - grant type, granted and vested shares, strike price, vesting
     schedule, and equity plan name.
 common:
+- type: AgenticAccess
+  url: agentic-access/ledgy-agentic-access.yml
 - type: TrustCenter
   url: security/ledgy-trust-center.yml
 - type: DomainSecurity
