@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ledgy GraphQL API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GraphQL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Execute a Ledgy GraphQL query.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://app.ledgy.com/graphql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Single GraphQL transport endpoint. POST a GraphQL document (and optional variables / operationName) as JSON. Authenticate with a company API key as a Bearer token. Rate limited to 20 requests per 5 seconds per company."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
