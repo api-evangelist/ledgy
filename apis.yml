@@ -50,6 +50,8 @@ apis:
   humanURL: https://docs.ledgy.com/
   baseURL: https://app.ledgy.com/graphql
   tags:
+  - GraphQL
+  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI
