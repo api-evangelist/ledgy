@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Ledgy GraphQL API
-  description: HTTP modeling of the Ledgy equity-management GraphQL API. Ledgy exposes a single native GraphQL endpoint at https://app.ledgy.com/graphql; all operations (auth, companyCaptable, companyTransactions, portfolioCaptable, portfolioPerformance, portfolioTransactions) are issued as HTTP POST requests carrying a GraphQL document in the JSON body. This OpenAPI document models that single transport endpoint - it is not a REST decomposition of the schema. See graphql/ledgy-schema.graphql and graphql/ledgy-graphql.md for the GraphQL surface.
+  title: Ledgy Graph QL API
+  description: HTTP modeling of the Ledgy equity-management GraphQL API.
   termsOfService: https://www.ledgy.com/legal/terms
   contact:
     name: Ledgy Support
@@ -13,14 +13,14 @@ servers:
 security:
 - bearerAuth: []
 tags:
-- name: GraphQL
+- name: Graph QL
 paths:
   /graphql:
     post:
       operationId: postGraphql
       tags:
-      - GraphQL
-      summary: Execute a Ledgy GraphQL query.
+      - Graph QL
+      summary: Execute a Ledgy GraphQL query
       description: Single GraphQL transport endpoint. POST a GraphQL document (and optional variables / operationName) as JSON. Authenticate with a company API key as a Bearer token. Rate limited to 20 requests per 5 seconds per company.
       requestBody:
         required: true
@@ -64,30 +64,17 @@ components:
       type: object
       properties:
         data:
-          type: object
+          type:
+          - object
+          - 'null'
           additionalProperties: true
-          nullable: true
           description: Result data keyed by the requested root fields.
         errors:
-          type: array
-          nullable: true
+          type:
+          - array
+          - 'null'
           items:
             $ref: '#/components/schemas/GraphQLError'
-    GraphQLRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: The GraphQL query or mutation document.
-        operationName:
-          type: string
-          description: Name of the operation to run when the document has several.
-        variables:
-          type: object
-          additionalProperties: true
-          description: Map of GraphQL variable values.
     GraphQLError:
       type: object
       properties:
@@ -109,6 +96,21 @@ components:
         extensions:
           type: object
           additionalProperties: true
+    GraphQLRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The GraphQL query or mutation document.
+        operationName:
+          type: string
+          description: Name of the operation to run when the document has several.
+        variables:
+          type: object
+          additionalProperties: true
+          description: Map of GraphQL variable values.
   securitySchemes:
     bearerAuth:
       type: http
