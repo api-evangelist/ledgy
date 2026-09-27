@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Ledgy Graph QL API
+  title: Ledgy GraphQL API
   description: HTTP modeling of the Ledgy equity-management GraphQL API.
   termsOfService: https://www.ledgy.com/legal/terms
   contact:
@@ -60,21 +60,6 @@ paths:
           description: Rate limit exceeded (more than 20 requests per 5 seconds per company).
 components:
   schemas:
-    GraphQLResponse:
-      type: object
-      properties:
-        data:
-          type:
-          - object
-          - 'null'
-          additionalProperties: true
-          description: Result data keyed by the requested root fields.
-        errors:
-          type:
-          - array
-          - 'null'
-          items:
-            $ref: '#/components/schemas/GraphQLError'
     GraphQLError:
       type: object
       properties:
@@ -111,6 +96,21 @@ components:
           type: object
           additionalProperties: true
           description: Map of GraphQL variable values.
+    GraphQLResponse:
+      type: object
+      properties:
+        data:
+          type:
+          - object
+          - 'null'
+          additionalProperties: true
+          description: Result data keyed by the requested root fields.
+        errors:
+          type:
+          - array
+          - 'null'
+          items:
+            $ref: '#/components/schemas/GraphQLError'
   securitySchemes:
     bearerAuth:
       type: http
