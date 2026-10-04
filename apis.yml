@@ -50,6 +50,8 @@ apis:
   humanURL: https://docs.ledgy.com/
   baseURL: https://app.ledgy.com/graphql
   tags:
+  - GraphQL
+  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI
@@ -61,6 +63,9 @@ apis:
   - type: GraphQL
     url: graphql/ledgy-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/ledgy-capability-edges.yml
+  name: Ledgy Business Capability Map
 - type: AgenticAccess
   url: agentic-access/ledgy-agentic-access.yml
 - type: TrustCenter
