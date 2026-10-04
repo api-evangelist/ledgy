@@ -81,21 +81,6 @@ components:
         extensions:
           type: object
           additionalProperties: true
-    GraphQLRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: The GraphQL query or mutation document.
-        operationName:
-          type: string
-          description: Name of the operation to run when the document has several.
-        variables:
-          type: object
-          additionalProperties: true
-          description: Map of GraphQL variable values.
     GraphQLResponse:
       type: object
       properties:
@@ -111,6 +96,21 @@ components:
           - 'null'
           items:
             $ref: '#/components/schemas/GraphQLError'
+    GraphQLRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The GraphQL query or mutation document.
+        operationName:
+          type: string
+          description: Name of the operation to run when the document has several.
+        variables:
+          type: object
+          additionalProperties: true
+          description: Map of GraphQL variable values.
   securitySchemes:
     bearerAuth:
       type: http
