@@ -1,0 +1,26 @@
+slug: ledgy
+provider: Ledgy
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Graph QL
+  spec_file: ledgy-graph-ql-api-openapi.yml
+  capability_id: BC-110.20
+  capability_id_l1: BC-110
+  capability_name: Shareholder & Equity Management
+  confidence: 0.7
+  evidence: HTTP modeling of the Ledgy equity-management GraphQL API; exposes a company's cap table, transactions
+    (convertibles, grants, transfers), share classes, financing rounds, ESOP grants
+  reason: The single GraphQL endpoint is the whole API surface for cap-table / share register / shareholder
+    equity management, which maps to Shareholder & Equity Management. Confidence moderated because the
+    tag itself is a transport-level 'Graph QL' endpoint with no per-operation detail.
