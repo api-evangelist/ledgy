@@ -1,4 +1,4 @@
-# Ledgy (ledgy)
+# Ledgy
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,163 +66,123 @@
 
 Ledgy is a European equity-management platform for cap tables, ESOP/equity plans, stakeholder and investor relations, and financing rounds. The Ledgy GraphQL API exposes a company's cap table, transactions (convertibles, grants, transfers), share classes, financing rounds, ESOP grants, and portfolio data through a single Bearer-authenticated endpoint at https://app.ledgy.com/graphql.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/ledgy/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/ledgy/refs/heads/main/apis.yml)
+**Areas:** Equity Management · Cap Table · ESOP · Stakeholders · GraphQL
 
-## Tags
+## Ledgy on APIs.io
 
-- Equity Management
-- Cap Table
-- ESOP
-- Stakeholders
-- GraphQL
+Everything profiled for Ledgy is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ledgy/](https://apis.io/providers/ledgy/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (1)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [Ledgy Graph QL API](https://apis.io/apis/ledgy/ledgy-graph-ql-api/) — The Graph QL API from Ledgy — 1 operation(s) for graph ql.
 
-## APIs
+### Published properties
 
-### Ledgy Companies API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Resolve the authenticated company context (company ID and name) for the supplied API token via the auth query, the entry point for all company-scoped Ledgy GraphQL operations.
+#### GraphQL (1)
 
-- **Human URL:** [https://docs.ledgy.com/](https://docs.ledgy.com/)
-- **Base URL:** `https://app.ledgy.com/graphql`
+GraphQL schemas.
 
-#### Tags
+- [Ledgy GraphQL API](https://apis.io/graphqls/ledgy/ledgy-graphql/)
 
-- Companies
-- Authentication
-- GraphQL
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.ledgy.com/)
-- [API Reference](https://docs.ledgy.com/)
-- [OpenAPI](openapi/ledgy-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/ledgy-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/ledgy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ledgy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Ledgy Agentic Access](https://apis.io/agentic-access/ledgy/ledgy-agentic-access/)
 
-### Ledgy Stakeholders API
+#### Collections (2)
 
-Read stakeholder-level cap table rows via companyCaptable grouped by stakeholderName - ownership percentages, issued, diluted, vested and exercised share counts, and stakeholder metadata.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.ledgy.com/](https://docs.ledgy.com/)
-- **Base URL:** `https://app.ledgy.com/graphql`
+- [Ledgy GraphQL API](https://apis.io/collections/ledgy/open-ledgy/)
+- [Ledgy GraphQL API](https://apis.io/collections/ledgy/open-ledgy-graphql-api/)
 
-#### Tags
+#### Security (3)
 
-- Stakeholders
-- Cap Table
-- GraphQL
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Ledgy Authentication](https://apis.io/security/ledgy/ledgy-authentication/)
+- [Ledgy Domain Security](https://apis.io/security/ledgy/ledgy-domain-security/)
+- [Ledgy Trust Center](https://apis.io/security/ledgy/ledgy-trust-center/)
 
-- [Documentation](https://docs.ledgy.com/)
-- [OpenAPI](openapi/ledgy-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/ledgy-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/ledgy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ledgy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Ledgy Transactions API
+Published plans, tiers and prices.
 
-List company transactions via companyTransactions, returning a typed union of Convertible, Grant, and Transfer records filterable by transaction type and an as-of date.
+- [Ledgy Plans Pricing](https://apis.io/plans/ledgy/ledgy-plans-pricing/)
 
-- **Human URL:** [https://docs.ledgy.com/](https://docs.ledgy.com/)
-- **Base URL:** `https://app.ledgy.com/graphql`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Transactions
-- Convertibles
-- Transfers
-- GraphQL
+- [Ledgy Rate Limits](https://apis.io/rate-limits/ledgy/ledgy-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://docs.ledgy.com/)
-- [OpenAPI](openapi/ledgy-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/ledgy-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/ledgy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ledgy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### Ledgy Share Classes API
+- [Ledgy Finops](https://apis.io/finops/ledgy/ledgy-finops/)
 
-Aggregate the cap table by share class via companyCaptable grouped by shareClassName, exposing per-class share counts, ownership, and value.
+## Where to find this API
 
-- **Human URL:** [https://docs.ledgy.com/](https://docs.ledgy.com/)
-- **Base URL:** `https://app.ledgy.com/graphql`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Share Classes
-- Cap Table
-- GraphQL
-
-#### Properties
-
-- [Documentation](https://docs.ledgy.com/)
-- [OpenAPI](openapi/ledgy-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/ledgy-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/ledgy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ledgy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Ledgy Financing Rounds API
-
-Surface financing-round and convertible-instrument detail through companyTransactions filtered to the convertible type - investment, interest, valuation cap, discount, and maturity.
-
-- **Human URL:** [https://docs.ledgy.com/](https://docs.ledgy.com/)
-- **Base URL:** `https://app.ledgy.com/graphql`
-
-#### Tags
-
-- Financing Rounds
-- Convertibles
-- GraphQL
-
-#### Properties
-
-- [Documentation](https://docs.ledgy.com/)
-- [OpenAPI](openapi/ledgy-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/ledgy-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/ledgy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ledgy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Ledgy ESOP and Grants API
-
-Read ESOP / equity-plan grant detail via companyTransactions filtered to the grant type - grant type, granted and vested shares, strike price, vesting schedule, and equity plan name.
-
-- **Human URL:** [https://docs.ledgy.com/](https://docs.ledgy.com/)
-- **Base URL:** `https://app.ledgy.com/graphql`
-
-#### Tags
-
-- ESOP
-- Grants
-- Vesting
-- GraphQL
-
-#### Properties
-
-- [Documentation](https://docs.ledgy.com/)
-- [OpenAPI](openapi/ledgy-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/ledgy-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/ledgy.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/ledgy.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/ledgy)
-- [LinkedIn](https://www.linkedin.com/company/ledgy)
 - [Website](https://www.ledgy.com/)
 - [Documentation](https://docs.ledgy.com/)
-- [Plans](plans/ledgy-plans-pricing.yml)
-- [Rate Limits](rate-limits/ledgy-rate-limits.yml)
-- [Fin Ops](finops/ledgy-finops.yml)
+- [Blog](https://www.ledgy.com/blog)
+- [GitHub](https://github.com/ledgy)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 29.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 52.7 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 15.8 |
+
+**Agent readiness 22.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ledgy/](https://apis.io/providers/ledgy/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Ledgy: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ledgy/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
